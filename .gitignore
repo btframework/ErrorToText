@@ -1,6 +1,3 @@
-*.dsk
-*.suo
-
 .NET/c#/**/bin
 .NET/c#/**/obj
 .NET/vb.net/**/bin
