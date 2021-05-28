@@ -1,0 +1,13 @@
+*.dsk
+*.suo
+
+.NET/c#/**/bin
+.NET/c#/**/obj
+.NET/vb.net/**/bin
+.NET/vb.net/**/obj
+C++/**/build
+C++/*.ncb
+VCL/CBuilder/**/build
+VCL/CBuilder/*.~*
+VCL/Delphi/**/build
+VCL/Delphi/*.~*
