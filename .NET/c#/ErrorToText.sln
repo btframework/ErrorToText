@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorToText", "ErrorToText.csproj", "{788EF570-8822-4508-87C2-A5EA6866D2E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{788EF570-8822-4508-87C2-A5EA6866D2E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788EF570-8822-4508-87C2-A5EA6866D2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788EF570-8822-4508-87C2-A5EA6866D2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788EF570-8822-4508-87C2-A5EA6866D2E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AB0048E-6DF8-449C-8FA4-BB67D2A08D3A}
+	EndGlobalSection
+EndGlobal
