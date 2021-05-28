@@ -8,3 +8,5 @@ VCL/CBuilder/**/build
 VCL/CBuilder/*.~*
 VCL/Delphi/**/build
 VCL/Delphi/*.~*
+*.suo
+*.dsk
