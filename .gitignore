@@ -10,3 +10,4 @@ VCL/Delphi/**/build
 VCL/Delphi/*.~*
 *.suo
 *.dsk
+C++/ErrorToText.vcproj.MIKEPC.mike.user
