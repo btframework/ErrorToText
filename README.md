@@ -7,4 +7,4 @@ The function can read errors information from XML file located on our site (http
 
 The file on the site is always up to date. However using local file does not require internet access and for some reason can be better.
 
-This very simple demo applications show how to use this function.
+This very simple demo applications show how to use this function. Should you have any questions please contact us at support@btframework.com
