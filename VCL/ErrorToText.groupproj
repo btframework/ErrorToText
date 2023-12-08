@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5C0E6999-4669-4C03-8A84-A67D9011CEE7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="CBuilder\ErrorToTextCBuilder.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Delphi\ErrorToTextDelphi.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ErrorToTextCBuilder">
+        <MSBuild Projects="CBuilder\ErrorToTextCBuilder.cbproj"/>
+    </Target>
+    <Target Name="ErrorToTextCBuilder:Clean">
+        <MSBuild Projects="CBuilder\ErrorToTextCBuilder.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ErrorToTextCBuilder:Make">
+        <MSBuild Projects="CBuilder\ErrorToTextCBuilder.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="ErrorToTextDelphi">
+        <MSBuild Projects="Delphi\ErrorToTextDelphi.dproj"/>
+    </Target>
+    <Target Name="ErrorToTextDelphi:Clean">
+        <MSBuild Projects="Delphi\ErrorToTextDelphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ErrorToTextDelphi:Make">
+        <MSBuild Projects="Delphi\ErrorToTextDelphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ErrorToTextCBuilder;ErrorToTextDelphi"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ErrorToTextCBuilder:Clean;ErrorToTextDelphi:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ErrorToTextCBuilder:Make;ErrorToTextDelphi:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

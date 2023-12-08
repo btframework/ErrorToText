@@ -6,10 +6,9 @@
 #include "main.h"
 #include "wclHelpers.hpp"
 
-#pragma comment(lib, "..\\..\\..\\..\\..\\WCL7\\VCL\\Lib\\Common\\C6\\wclCommon.lib")
-
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "wclBluetooth"
 #pragma resource "*.dfm"
 TfmMain *fmMain;
 //---------------------------------------------------------------------------
