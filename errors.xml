@@ -923,6 +923,14 @@
       <error value="0x000500A9" const="WCL_E_BLUETOOTH_PAIRING_HANDLED_BY_SYSTEM">The pairing is handled by the OS.</error>
       <error value="0x000500AA" const="WCL_E_BLUETOOTH_RADIO_INSTANCE_NOT_FOUND">The Bluetooth radio instance was not found.</error>
       <error value="0x000500AB" const="WCL_E_BLUETOOTH_OPEN_RADIO_FAILED">Unable to open a Bluetooth Radio driver.</error>
+      <error value="0x000500AC" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_DRIVER">Invalid Bluetooth Radio driver instance name.</error>
+      <error value="0x000500AD" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_PATH">Invalid Bluetooth Radio driver instance path.</error>
+      <error value="0x000500AE" const="WCL_E_BLUETOOTH_OPEN_RADIO_ACCESS_DENIED">An application does not have enough rights to open Bluetooth Radio driver.</error>
+      <error value="0x000500AF" const="WCL_E_BLUETOOTH_OPEN_RADIO_DEVICE_NOT_FOUND">Bluetooth Radio driver not found or not working.</error>
+      <error value="0x000500B0" const="WCL_E_BLUETOOTH_OPEN_RADIO_IN_USE">The Bluetooth Radio driver is already in use by other application.</error>
+      <error value="0x000500B1" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_PARAM">Invalid parameters specified in Bluetooth Radio driver open request.</error>
+      <error value="0x000500B2" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_NAME">Invalid Bluetooth Radio driver name.</error>
+      <error value="0x000500B3" const="WCL_E_BLUETOOTH_OPEN_RADIO_COUNT_LIMIT">Too many opened Bluetooth Radio driver instances.</error>
     </category>
     
     <category name="Low Energy">
