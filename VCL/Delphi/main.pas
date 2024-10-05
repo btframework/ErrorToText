@@ -3,7 +3,7 @@ unit main;
 interface
 
 uses
-  Forms, Controls, StdCtrls, Classes;
+  Forms, Controls, StdCtrls, Classes, wclErrors;
 
 type
   TfmMain = class(TForm)
@@ -14,6 +14,11 @@ type
     btGetErrorInfo: TButton;
     lbInfo: TListBox;
     procedure btGetErrorInfoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+
+  private
+    ErrorInfo: TwclErrorInformation;
   end;
 
 var
@@ -22,36 +27,47 @@ var
 implementation
 
 uses
-  SysUtils, Dialogs, wclHelpers;
+  SysUtils, Dialogs;
 
 {$R *.dfm}
 
 procedure TfmMain.btGetErrorInfoClick(Sender: TObject);
 var
   Err: Integer;
-  Res: Boolean;
-  Framework: string;
-  Category: string;
-  Constant: string;
-  Description: string;
+  Path: string;
+  Details: TwclErrorDetails;
 begin
   lbInfo.Items.Clear;
 
   Err := StrToInt(edErrorValue.Text);
-  if cbUseLocalFile.Checked then begin
-    Res := wclGetErrorInfo('..\..\..\errors.xml', Err, Framework, Category,
-      Constant, Description);
-  end else
-    Res := wclGetErrorInfo(Err, Framework, Category, Constant, Description);
-    
-  if Res then begin
-    lbInfo.Items.Add('Error code: 0x' + IntToHex(Err, 8));
-    lbInfo.Items.Add('  Framework: ' + Framework);
-    lbInfo.Items.Add('  Category: ' + Category);
-    lbInfo.Items.Add('  Constant: ' + Constant);
-    lbInfo.Items.Add('  Description: ' + Description);
+
+  if cbUseLocalFile.Checked then
+    Path := '..\..\..\errors.xml'
+  else
+    Path := 'https://www.btframework.com/errors.xml';
+
+  if ErrorInfo.Open(Path) then begin
+    if ErrorInfo.GetDetails(Err, Details) then begin
+      lbInfo.Items.Add('Error code: 0x' + IntToHex(Err, 8));
+      lbInfo.Items.Add('  Framework: ' + Details.Framework);
+      lbInfo.Items.Add('  Category: ' + Details.Category);
+      lbInfo.Items.Add('  Constant: ' + Details.Constant);
+      lbInfo.Items.Add('  Description: ' + Details.Description);
+    end else
+      lbInfo.Items.Add('Get error details failed');
+    ErrorInfo.Close;
   end else
     ShowMessage('wclGetErrorInfo failed');
+end;
+
+procedure TfmMain.FormCreate(Sender: TObject);
+begin
+  ErrorInfo := TwclErrorInformation.Create;
+end;
+
+procedure TfmMain.FormDestroy(Sender: TObject);
+begin
+  ErrorInfo.Free;
 end;
 
 end.

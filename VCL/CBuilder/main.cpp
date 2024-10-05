@@ -4,11 +4,9 @@
 #pragma hdrstop
 
 #include "main.h"
-#include "wclHelpers.hpp"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma link "wclBluetooth"
 #pragma resource "*.dfm"
 TfmMain *fmMain;
 //---------------------------------------------------------------------------
@@ -21,30 +19,42 @@ void __fastcall TfmMain::btGetErrorInfoClick(TObject *Sender)
 {
   lbInfo->Items->Clear();
 
-  bool Res;
-  String Framework;
-  String Category;
-  String Constant;
-  String Description;
-
   int Err = StrToInt(edErrorValue->Text);
-  if (cbUseLocalFile->Checked)
-  {
-    Res = wclGetErrorInfo("..\\..\\..\\errors.xml", Err, Framework, Category,
-      Constant, Description);
-  }
-  else
-    Res = wclGetErrorInfo(Err, Framework, Category, Constant, Description);
 
-  if (Res)
+  String Path;
+  if (cbUseLocalFile->Checked)
+	Path = "..\\..\\..\\errors.xml";
+  else
+	Path = "https://www.btframework.com/errors.xml";
+
+  if (ErrorInfo->Open(Path))
   {
-    lbInfo->Items->Add("Error code: 0x" + IntToHex(Err, 8));
-    lbInfo->Items->Add("  Framework: " + Framework);
-    lbInfo->Items->Add("  Category: " + Category);
-    lbInfo->Items->Add("  Constant: " + Constant);
-    lbInfo->Items->Add("  Description: " + Description);
+	TwclErrorDetails Details;
+	if (ErrorInfo->GetDetails(Err, Details))
+	{
+	  lbInfo->Items->Add("Error code: 0x" + IntToHex(Err, 8));
+	  lbInfo->Items->Add("  Framework: " + Details.Framework);
+	  lbInfo->Items->Add("  Category: " + Details.Category);
+	  lbInfo->Items->Add("  Constant: " + Details.Constant);
+	  lbInfo->Items->Add("  Description: " + Details.Description);
+	}
+	else
+	  lbInfo->Items->Add("Get error details failed");
+	ErrorInfo->Close();
   }
   else
     ShowMessage("wclGetErrorInfo failed");
 }
 //---------------------------------------------------------------------------
+void __fastcall TfmMain::FormCreate(TObject *Sender)
+{
+	ErrorInfo = new TwclErrorInformation();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmMain::FormDestroy(TObject *Sender)
+{
+	ErrorInfo->Free();
+}
+//---------------------------------------------------------------------------
+

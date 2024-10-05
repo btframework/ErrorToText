@@ -4,6 +4,10 @@
 #pragma once
 #include "afxwin.h"
 
+#include "wclErrors.h"
+
+using namespace wclCommon;
+
 
 // CErrorToTextDlg dialog
 class CErrorToTextDlg : public CDialog
@@ -29,6 +33,8 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 private:
+	CwclErrorInformation ErrorInfo;
+
 	CEdit edErrorValue;
 	CButton cbUseLocalFile;
 	CListBox lbInfo;

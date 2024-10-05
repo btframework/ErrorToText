@@ -1,14 +1,10 @@
 ﻿Public Class fmMain
+    Dim ErrorInfo As wclErrorInformation = New wclErrorInformation()
+
     Private Sub btGetErrorInfo_Click(sender As Object, e As EventArgs) Handles btGetErrorInfo.Click
         lbInfo.Items.Clear()
 
         Dim Err As Int32
-        Dim Res As String
-        Dim Framework As String = ""
-        Dim Category As String = ""
-        Dim Constant As String = ""
-        Dim Description As String = ""
-
         Dim ErrStr As String = edErrorValue.Text
         If ErrStr.IndexOf("0x") = 0 Then
             Err = Convert.ToInt32(ErrStr, 16)
@@ -16,18 +12,25 @@
             Err = Convert.ToInt32(ErrStr, 10)
         End If
 
+        Dim Path As String
         If cbUseLocalFile.Checked Then
-            Res = wclHelpers.GetErrorInfo("..\..\..\..\errors.xml", Err, Framework, Category, Constant, Description)
+            Path = "..\\..\\..\\..\\errors.xml"
         Else
-            Res = wclHelpers.GetErrorInfo(Err, Framework, Category, Constant, Description)
+            Path = "https://www.btframework.com/errors.xml"
         End If
 
-        If Res Then
-            lbInfo.Items.Add("Error code: 0x" + Err.ToString("X8"))
-            lbInfo.Items.Add("  Framework: " + Framework)
-            lbInfo.Items.Add("  Category: " + Category)
-            lbInfo.Items.Add("  Constant: " + Constant)
-            lbInfo.Items.Add("  Description: " + Description)
+        If ErrorInfo.Open(Path) Then
+            Dim Details As wclErrorDetails = New wclErrorDetails()
+            If ErrorInfo.GetDetails(Err, Details) Then
+                lbInfo.Items.Add("Error code: 0x" + Err.ToString("X8"))
+                lbInfo.Items.Add("  Framework: " + Details.Framework)
+                lbInfo.Items.Add("  Category: " + Details.Category)
+                lbInfo.Items.Add("  Constant: " + Details.Constant)
+                lbInfo.Items.Add("  Description: " + Details.Description)
+            Else
+                lbInfo.Items.Add("Get error details failed")
+            End If
+            ErrorInfo.Close()
         Else
             MessageBox.Show("wclGetErrorInfo failed")
         End If

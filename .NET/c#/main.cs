@@ -8,6 +8,8 @@ namespace ErrorToText
 {
     public partial class fmMain : Form
     {
+        private wclErrorInformation ErrorInfo = new wclErrorInformation();
+
         public fmMain()
         {
             // Allows to access errors.xml from our site.
@@ -22,36 +24,32 @@ namespace ErrorToText
             lbInfo.Items.Clear();
 
             Int32 Err;
-            Boolean Res;
-            String Framework;
-            String Category;
-            String Constant;
-            String Description;
-
             String ErrStr = edErrorValue.Text;
             if (ErrStr.IndexOf("0x") == 0)
                 Err = Convert.ToInt32(ErrStr, 16);
             else
                 Err = Convert.ToInt32(ErrStr, 10);
 
+            String Path;
             if (cbUseLocalFile.Checked)
-            {
-                Res = wclHelpers.GetErrorInfo("..\\..\\..\\..\\errors.xml", Err, out Framework, out Category,
-                 out Constant, out Description);
-            }
+                Path = "..\\..\\..\\..\\errors.xml";
             else
-            {
-                Res = wclHelpers.GetErrorInfo(Err, out Framework, out Category, out Constant,
-                    out Description);
-            }
+                Path = "https://www.btframework.com/errors.xml";
 
-            if (Res)
+            if (ErrorInfo.Open(Path))
             {
-                lbInfo.Items.Add("Error code: 0x" + Err.ToString("X8"));
-                lbInfo.Items.Add("  Framework: " + Framework);
-                lbInfo.Items.Add("  Category: " + Category);
-                lbInfo.Items.Add("  Constant: " + Constant);
-                lbInfo.Items.Add("  Description: " + Description);
+                wclErrorDetails Details = new wclErrorDetails();
+                if (ErrorInfo.GetDetails(Err, ref Details))
+                {
+                    lbInfo.Items.Add("Error code: 0x" + Err.ToString("X8"));
+                    lbInfo.Items.Add("  Framework: " + Details.Framework);
+                    lbInfo.Items.Add("  Category: " + Details.Category);
+                    lbInfo.Items.Add("  Constant: " + Details.Constant);
+                    lbInfo.Items.Add("  Description: " + Details.Description);
+                }
+                else
+                    lbInfo.Items.Add("Get error details failed");
+                ErrorInfo.Close();
             }
             else
                 MessageBox.Show("wclGetErrorInfo failed");

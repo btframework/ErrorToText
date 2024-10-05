@@ -5,13 +5,9 @@
 #include "ErrorToText.h"
 #include "ErrorToTextDlg.h"
 
-#include "wclHelpers.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-using namespace wclCommon;
 
 
 // CErrorToTextDlg dialog
@@ -98,11 +94,6 @@ HCURSOR CErrorToTextDlg::OnQueryDragIcon()
 void CErrorToTextDlg::OnBnClickedButtonGetErrorInfo()
 {
 	int Err;
-	bool Res;
-	tstring Framework;
-	tstring Category;
-	tstring Constant;
-	tstring Description;
 
 	lbInfo.ResetContent();
 
@@ -113,23 +104,29 @@ void CErrorToTextDlg::OnBnClickedButtonGetErrorInfo()
 	else
 		Err = _tcstol(ErrStr.GetBuffer(), NULL, 10);
 
+	tstring Path;
 	if (cbUseLocalFile.GetCheck())
-	{
-		Res = wclGetErrorInfo(_T("..\\..\\errors.xml"), Err, Framework, Category,
-			Constant, Description);
-	}
+		Path = _T("..\\..\\..\\errors.xml");
 	else
-		Res = wclGetErrorInfo(Err, Framework, Category, Constant, Description);
+		Path = _T("https://www.btframework.com/errors.xml");
 	
-	if (Res)
+	if (ErrorInfo.Open(Path))
 	{
-		CString s;
-		s.Format(_T("%.8X"), Err);
-		lbInfo.AddString(_T("Error code: 0x") + s);
-		lbInfo.AddString(_T("  Framework: ") + CString(Framework.c_str()));
-		lbInfo.AddString(_T("  Category: ") + CString(Category.c_str()));
-		lbInfo.AddString(_T("  Constant: ") + CString(Constant.c_str()));
-		lbInfo.AddString(_T("  Description: ") + CString(Description.c_str()));
+		wclErrorDetails Details;
+		if (ErrorInfo.GetDetails(Err, Details))
+		{
+			CString s;
+			s.Format(_T("%.8X"), Err);
+			lbInfo.AddString(_T("Error code: 0x") + s);
+			lbInfo.AddString(_T("  Framework: ") + CString(Details.Framework.c_str()));
+			lbInfo.AddString(_T("  Category: ") + CString(Details.Category.c_str()));
+			lbInfo.AddString(_T("  Constant: ") + CString(Details.Constant.c_str()));
+			lbInfo.AddString(_T("  Description: ") + CString(Details.Description.c_str()));
+		}
+		else
+			lbInfo.AddString(_T("Get error details failed"));
+		ErrorInfo.Close();
+
 	}
 	else
 		AfxMessageBox(_T("wclGetErrorInfo failed"));

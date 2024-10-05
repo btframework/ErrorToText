@@ -19,6 +19,8 @@
       <error value="0x00011004" const="WCL_E_MR_UNABLE_REGISTER_SYNC_OBJ">A message receiver can not register for threads synchronization.</error>
       <error value="0x00011005" const="WCL_E_MR_UNABLE_CREATE_SYNC_OBJ">A message receiver can not create a thread synchronization object.</error>
       <error value="0x00011006" const="WCL_E_MR_SYNC_OBJ_NOT_CREATED">A thread synchronization object has not been created.</error>
+      <error value="0x00011007" const="WCL_E_MR_INVALID_THREAD">An invalid thread used to call the method.</error>
+      <error value="0x00011008" const="WCL_E_MR_UNABLE_CREATE_TERM_EVENT">Unable to create asynchronous message processing thread termination event.</error>
     </category>
     
     <category name="Message broadcaster">
@@ -35,6 +37,7 @@
       <error value="0x0001200A" const="WCL_E_MB_INVALID_SYNC_METHOD">Invalid or unknown synchronization method.</error>
       <error value="0x0001200B" const="WCL_E_MB_WAIT_TIMEOUT">A timeout appeared during wait operation.</error>
       <error value="0x0001200C" const="WCL_E_MB_WAIT_FAILED">Wait operation failed.</error>
+      <error value="0x0001200D" const="WCL_E_MB_RECEIVER_NOT_FOUND">A message receiver with given ID was not found.</error>
     </category>
     
     <category name="WinRT">
@@ -82,6 +85,10 @@
       <error value="0x00016000" const="WCL_E_PEM_OPENED">The power events monitor is already opeend.</error>
       <error value="0x00016001" const="WCL_E_PEM_CLOSED">The power events monitor is already closed.</error>
       <error value="0x00016002" const="WCL_E_PEM_FEATURE_NOT_SUPPORTED">The power state monitoring feature is supported on Windows 8 and above.</error>
+      <error value="0x00016003" const="WCL_E_PEM_GET_POWER_STATUS_FAILED">Unable to get system power status.</error>
+      <error value="0x00016004" const="WCL_E_PEM_CREATE_INIT_EVENT_FAILED">Unable to create Power Events Window initialization event.</error>
+      <error value="0x00016005" const="WCL_E_PEM_CREATE_WND_THREAD_FAILED">Unable to create and start Power Event Window thread.</error>
+      <error value="0x00016006" const="WCL_E_PEM_CREATE_WND_FAILED">Unable to create Power Events Window.</error>
     </category>
     
     <category name="Configuration manager">
@@ -109,13 +116,13 @@
       <error value="0x00021009" const="WCL_E_WIFI_INVALID_ARGUMENT">One or more arguments passed into the WLAN API are invalid.</error>
       <error value="0x0002100A" const="WCL_E_WIFI_NOT_AVAILABLE">The WiFi hardware or driver was not found.</error>
       <error value="0x0002100B" const="WCL_E_WIFI_TOO_MANY_SESSIONS">Too many sessions to WLAN subsystem are opened.</error>
-      <error value="0x0002100C" const="WCL_E_WIFI_INVALID_STATE">The resource is not in the correct state to perform the requested operation. This error is returned if the wireless Hosted Network is disabled by group policy on a domain.</error>
+      <error value="0x0002100C" const="WCL_E_WIFI_INVALID_STATE">The resource is not in the correct state to perform the requested operation. This error is returned if an interface is in the invalid state. For example if an interface is not connected to a WiFi network or if the wireless Hosted Network is disabled by a group policy on a domain.</error>
       <error value="0x0002100D" const="WCL_E_WIFI_RADIO_OFF">The radio associated with the interface is turned off. There are no available networks when the radio is off.</error>
       <error value="0x0002100E" const="WCL_E_WIFI_RPC_SUBSYSTEM">Internal WLAN driver error.</error>
       <error value="0x0002100F" const="WCL_E_WIFI_PHY_NOT_FOUND">The PHY with given index was not found.</error>
       <error value="0x00021010" const="WCL_E_WIFI_BAD_CONFIGURATION">The configuration data for the wireless Hosted Network is unconfigured. This error is returned if the application queries the Hosted Network Profile or Hosted Network Connection Settings before a SSID is configured in the wireless Hosted Network.</error>
       <error value="0x00021011" const="WCL_E_WIFI_NOT_FOUND">The wireless profile specified by was not found in the profile store.</error>
-      <error value="0x00021012" const="WCL_E_WIFI_ALREADY_EXISTS">The WLAN profile already exists. Typically, this return value is used when <i>Overwrite</i> is <i>False</i>; however, if <i>Overwrite</i> is <i>True</i> and <i>Flags</i> specifies a different profile type than the one used by the existing profile, then the existing profile will not be overwritten and <i>WCL_E_WIFI_ALREADY_EXISTS</i> will be returned.</error>
+      <error value="0x00021012" const="WCL_E_WIFI_ALREADY_EXISTS">The WLAN profile already exists. Typically, this return value is used when Overwrite is False; however, if Overwrite is True and Flags specifies a different profile type than the one used by the existing profile, then the existing profile will not be overwritten and WCL_E_WIFI_ALREADY_EXISTS will be returned.</error>
       <error value="0x00021013" const="WCL_E_WIFI_BAD_PROFILE">The profile is not valid.</error>
       <error value="0x00021014" const="WCL_E_WIFI_NO_MATCH">The interface does not support one or more of the capabilities specified in the profile. For example, if a profile specifies the use of WPA2 when the NIC only supports WPA, then this error code is returned. Also, if a profile specifies the use of FIPS mode when the NIC does not support FIPS mode, then this error code is returned.</error>
       <error value="0x00021015" const="WCL_E_WIFI_DATA_NOT_FOUND">This error is returned if no user custom data exists for the profile specified.</error>
@@ -133,8 +140,6 @@
       <error value="0x00021021" const="WCL_E_WIFI_BAD_ARGUMENTS">One or more arguments are not correct.</error>
       <error value="0x00021022" const="WCL_E_WIFI_CANTOPEN">The configuration registry key could not be opened.</error>
       <error value="0x00021023" const="WCL_E_WIFI_DATATYPE_MISMATCH">The data supplied is of the wrong type.</error>
-      <error value="0x00021024" const="WCL_E_WIFI_HOSTED_NETWORK_STARTED">The Hosted Network has already been started.</error>
-      <error value="0x00021025" const="WCL_E_WIFI_PSD_IE_NOT_SUPPORTED">The Hosted Network does not support PSD IE on this platform.</error>
     </category>
     
     <category name="EAP authentication">
@@ -183,14 +188,14 @@
       <error value="0x0002200A" const="WCL_E_WIFI_RES_SSID_LIST_TOO_LONG">The size of the service set identifiers (SSID) list exceeds the maximum size supported by the adapter.</error>
       <error value="0x0002200B" const="WCL_E_WIFI_RES_CONNECT_CALL_FAIL">The Media Specific Module (MSM) connect call fails.</error>
       <error value="0x0002200C" const="WCL_E_WIFI_RES_SCAN_CALL_FAIL">The MSM scan call fails.</error>
-      <error value="0x0002200D" const="WCL_E_WIFI_RES_NETWORK_NOT_AVAILABLE">The specified network is not available.<br />This reason code is also used when there is a mismatch between capabilities specified in an XML profile and interface and/or network capabilities. For example, if a profile specifies the use of WPA2 when the NIC only supports WPA, then this error code is returned. Also, if a profile specifies the use of FIPS mode when the NIC does not support FIPS mode, then this error code is returned.</error>
+      <error value="0x0002200D" const="WCL_E_WIFI_RES_NETWORK_NOT_AVAILABLE">The specified network is not available. This reason code is also used when there is a mismatch between capabilities specified in an XML profile and interface and/or network capabilities. For example, if a profile specifies the use of WPA2 when the NIC only supports WPA, then this error code is returned. Also, if a profile specifies the use of FIPS mode when the NIC does not support FIPS mode, then this error code is returned.</error>
       <error value="0x0002200E" const="WCL_E_WIFI_RES_PROFILE_CHANGED_OR_DELETED">The profile was changed or deleted before the connection was established.</error>
       <error value="0x0002200F" const="WCL_E_WIFI_RES_KEY_MISMATCH">The profile key does not match the network key.</error>
       <error value="0x00022010" const="WCL_E_WIFI_RES_USER_NOT_RESPOND">The user is not responding.</error>
       <error value="0x00022011" const="WCL_E_WIFI_RES_AP_PROFILE_NOT_ALLOWED_FOR_CLIENT">An application tried to apply a wireless Hosted Network profile to a physical wireless network adapter using the WlanSetProfile function, rather than to a virtual device.</error>
-      <error value="0x00022012" const="WCL_E_WIFI_RES_AP_PROFILE_NOT_ALLOWED">An application tried to apply a wireless Hosted Network profile to a physical wireless network adapter using the <i>SetProfile</i> method, rather than to a virtual device.</error>
+      <error value="0x00022012" const="WCL_E_WIFI_RES_AP_PROFILE_NOT_ALLOWED">An application tried to apply a wireless Hosted Network profile to a physical wireless network adapter using the SetProfile method, rather than to a virtual device.</error>
       <error value="0x00022013" const="WCL_E_WIFI_RES_INVALID_PROFILE_SCHEMA">The profile invalid according to the schema.</error>
-      <error value="0x00022014" const="WCL_E_WIFI_RES_PROFILE_MISSING">The <i>WLANProfile</i> element is missing.</error>
+      <error value="0x00022014" const="WCL_E_WIFI_RES_PROFILE_MISSING">The WLANProfile element is missing.</error>
       <error value="0x00022015" const="WCL_E_WIFI_RES_INVALID_PROFILE_NAME">The name of the profile is invalid.</error>
       <error value="0x00022016" const="WCL_E_WIFI_RES_INVALID_PROFILE_TYPE">The type of the profile is invalid.</error>
       <error value="0x00022017" const="WCL_E_WIFI_RES_INVALID_PHY_TYPE">The PHY type is invalid.</error>
@@ -210,7 +215,7 @@
       <error value="0x00022025" const="WCL_E_WIFI_RES_IHV_SECURITY_ONEX_MISSING">The IHV 802.1X security settings are missing.</error>
       <error value="0x00022026" const="WCL_E_WIFI_RES_PROFILE_SSID_INVALID">The SSID in the profile is invalid or missing.</error>
       <error value="0x00022027" const="WCL_E_WIFI_RES_TOO_MANY_SSID">Too many SSIDs were specified in the profile.</error>
-      <error value="0x00022028" const="WCL_E_WIFI_RES_BAD_MAX_NUMBER_OF_CLIENTS_FOR_AP">An application tried to apply a wireless Hosted Network profile to a physical network adapter NIC using the <i>SetProfile</i> method, and specified an unacceptable value for the maximum number of clients allowed.</error>
+      <error value="0x00022028" const="WCL_E_WIFI_RES_BAD_MAX_NUMBER_OF_CLIENTS_FOR_AP">An application tried to apply a wireless Hosted Network profile to a physical network adapter NIC using the SetProfile method, and specified an unacceptable value for the maximum number of clients allowed.</error>
       <error value="0x00022029" const="WCL_E_WIFI_RES_INVALID_CHANNEL">The channel specified is invalid.</error>
       <error value="0x0002202A" const="WCL_E_WIFI_RES_OPERATION_MODE_NOT_SUPPORTED">The operation mode is not supported.</error>
       <error value="0x0002202B" const="WCL_E_WIFI_RES_AUTO_AP_PROFILE_NOT_ALLOWED">An internal operating system error occurred with the wireless Hosted Network.</error>
@@ -349,11 +354,11 @@
       <error value="0x00024008" const="WCL_E_WIFI_HN_RES_IMPERSONATION">User impersonation failed.</error>
       <error value="0x00024009" const="WCL_E_WIFI_HN_RES_STOP_BEFORE_START">An incorrect function call sequence was made.</error>
       <error value="0x0002400A" const="WCL_E_WIFI_HN_RES_INTERFACE_AVAILABLE">A wireless interface has become available.</error>
-      <error value="0x0002400B" const="WCL_E_WIFI_HN_RES_INTERFACE_UNAVAILABLE">A wireless interface has become unavailable.<br />This reason code is returned by the wireless Hosted Network functions any time the network state of the wireless Hosted Network is <i>hnUnavailable</i>. For example if the wireless Hosted Network is disabled by group policy on a domain, then the network state of the wireless Hosted Network is <i>hnUnavailable</i>.</error>
+      <error value="0x0002400B" const="WCL_E_WIFI_HN_RES_INTERFACE_UNAVAILABLE">A wireless interface has become unavailable. This reason code is returned by the wireless Hosted Network functions any time the network state of the wireless Hosted Network is hnUnavailable. For example if the wireless Hosted Network is disabled by group policy on a domain, then the network state of the wireless Hosted Network is hnUnavailable.</error>
       <error value="0x0002400C" const="WCL_E_WIFI_HN_RES_MINIPORT_STOPPED">The wireless miniport driver stopped the Hosted Network.</error>
       <error value="0x0002400D" const="WCL_E_WIFI_HN_RES_MINIPORT_STARTED">The wireless miniport driver status changed.</error>
-      <error value="0x0002400E" const="WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STARTED">An incompatible connection started.<br /><br/>An incompatible connection refers to one of the following cases:<ul class="default"><li>An ad hoc wireless connection is started on the primary station adapter.</li><li>Network monitoring is started on the primary station adapter by an application (Network Monitor, for example). </li><li>A wireless connection is started in FIPS safe mode on the primary station adapter. FIPS safe mode is specified in the profile of the wireless connection.</li></ul>Windows will stop the wireless Hosted Network on the software-based wireless access point (AP) adapter when an incompatible connection starts on the primary station adapter. The network state of the wireless Hosted Network state would become <i>hnUnavailable</i>.</error>
-      <error value="0x0002400F" const="WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STOPPED">An incompatible connection stopped.<br />An incompatible connection previously started on the primary station adapter (see <i>WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STARTED</i>), but the incompatible connection has stopped. If the wireless Hosted Network was previously stopped as a result of an incompatible connection being started, Windows will not automatically restart the wireless Hosted Network.</error>
+      <error value="0x0002400E" const="WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STARTED">An incompatible connection started. An incompatible connection refers to one of the following cases: An ad hoc wireless connection is started on the primary station adapter; Network monitoring is started on the primary station adapter by an application (Network Monitor, for example); A wireless connection is started in FIPS safe mode on the primary station adapter. FIPS safe mode is specified in the profile of the wireless connection; Windows will stop the wireless Hosted Network on the software-based wireless access point (AP) adapter when an incompatible connection starts on the primary station adapter. The network state of the wireless Hosted Network state would become hnUnavailable.</error>
+      <error value="0x0002400F" const="WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STOPPED">An incompatible connection stopped. An incompatible connection previously started on the primary station adapter (see WCL_E_WIFI_HN_RES_INCOMPATIBLE_CONNECTION_STARTED), but the incompatible connection has stopped. If the wireless Hosted Network was previously stopped as a result of an incompatible connection being started, Windows will not automatically restart the wireless Hosted Network.</error>
       <error value="0x00024010" const="WCL_E_WIFI_HN_RES_USER_ACTION">A state change occurred that was caused by explicit user action.</error>
       <error value="0x00024011" const="WCL_E_WIFI_HN_RES_CLIENT_ABORT">A state change occurred that was caused by client abort.</error>
       <error value="0x00024012" const="WCL_E_WIFI_HN_RES_AP_START_FAILED">The driver for the wireless Hosted Network failed to start.</error>
@@ -366,6 +371,14 @@
       <error value="0x00024019" const="WCL_E_WIFI_HN_RES_PROPERTIES_CHANGE">The properties of the wireless Hosted Network changed.</error>
       <error value="0x0002401A" const="WCL_E_WIFI_HN_RES_VIRTUAL_STATION_BLOCKING_USE">A virtual station is active and blocking operation.</error>
       <error value="0x0002401B" const="WCL_E_WIFI_HN_RES_SERVICE_AVAILABLE_ON_VIRTUAL_STATION">An identical service is available on a virtual station.</error>
+      
+      <error value="0x00024100" const="WCL_E_WIFI_HN_OPEN_IP_SETTINGS_FAILED">Unable to access the IP settings of a Hosted Network.</error>
+      <error value="0x00024101" const="WCL_E_WIFI_HN_READ_IP_FAILED">Unable to read TCP/IP settings of a Hosted Network.</error>
+      <error value="0x00024102" const="WCL_E_WIFI_HN_FEATURE_NOT_SUPPORTED">The requested feature is not supported on current platform.</error>
+      <error value="0x00024103" const="WCL_E_WIFI_HN_GET_IP_TABLE_FAILED">Get IP table failed.</error>
+      <error value="0x00024104" const="WCL_E_WIFI_HN_PEER_NOT_FOUND">The peer with specified MAC was not found.</error>
+      <error value="0x00024105" const="WCL_E_WIFI_HN_STARTED">The Hosted Network has already been started.</error>
+      <error value="0x00024106" const="WCL_E_WIFI_HN_PSD_IE_NOT_SUPPORTED">The Hosted Network does not support PSD IE on this platform.</error>
     </category>
     
     <category name="Network list manager">
@@ -381,7 +394,7 @@
       <error value="0x00025009" const="WCL_E_NLM_NE_UNABLE_FIND_CONNECTION_POINT">Unable to find the Network events handler connection point.</error>
       <error value="0x0002500A" const="WCL_E_NLM_NETWORK_NOT_FOUND">The network with given ID was not found.</error>
       <error value="0x0002500B" const="WCL_E_NLM_UNABLE_GET_CONNECTIVITY">Unable to get a network's or machine's connectivity.</error>
-      <error value="0x0002500C" const="WCL_E_NLM_UNABLE_GET_CONNECTED_PROPERTY">Unable to read <i>Connected</i> property of the Network List Manager or Network.</error>
+      <error value="0x0002500C" const="WCL_E_NLM_UNABLE_GET_CONNECTED_PROPERTY">Unable to read Connected property of the Network List Manager or Network.</error>
       <error value="0x0002500D" const="WCL_E_NLM_UNABLE_GET_DOMAIN_TYPE">Unable to get a network's domain type.</error>
       <error value="0x0002500E" const="WCL_E_NLM_UNABLE_GET_NETWORK_CATEGORY">Unable to get a network's categiry.</error>
       <error value="0x0002500F" const="WCL_E_NLM_UNABLE_GET_NETWORK_DESCRIPTION">Unable to get a network's description.</error>
@@ -451,17 +464,18 @@
       <error value="0x00028005" const="WCL_E_WIFI_DIRECT_PAIR_HARDWARE_FAILURE">The device indicated there was a hardware failure.</error>
       <error value="0x00028006" const="WCL_E_WIFI_DIRECT_PAIR_TIMEOUT">The authentication process timed out before it could complete.</error>
       <error value="0x00028007" const="WCL_E_WIFI_DIRECT_PAIR_NOT_ALLOWED">The authentication protocol is not supported, so the device is not paired.</error>
-      <error value="0x00028008" const="WCL_E_WIFI_DIRECT_PAIR_FAILURE">Authentication failed, so the device is not paired. Either the device or the application rejected the authentication.</error>
+      <error value="0x00028008" const="WCL_E_WIFI_DIRECT_PAIR_AUTHENTICATION_FAILURE">Authentication failed, so the device is not paired. Either the device or the application rejected the authentication.</error>
       <error value="0x00028009" const="WCL_E_WIFI_DIRECT_PAIR_NO_PROFILES">There are no network profiles for this device to use.</error>
       <error value="0x0002800A" const="WCL_E_WIFI_DIRECT_PAIR_PROTECTION_LEVEL">The minimum level of protection is not supported by the device or the application.</error>
       <error value="0x0002800B" const="WCL_E_WIFI_DIRECT_PAIR_ACCESS_DENIED">Your application does not have the appropriate permissions level to pair the device.</error>
       <error value="0x0002800C" const="WCL_E_WIFI_DIRECT_PAIR_INVALID_CEREMONY">The ceremony data was incorrect.</error>
       <error value="0x0002800D" const="WCL_E_WIFI_DIRECT_PAIR_CANCELLED">The pairing action was canceled before completion.</error>
       <error value="0x0002800E" const="WCL_E_WIFI_DIRECT_PAIR_IN_PROGRESS">The device is already attempting to pair or unpair.</error>
-      <error value="0x0002800F" const="WCL_E_WIFI_DIRECT_PAIR_HANDLER_NOT_REGISTERED">Either the event handler wasn't registered or a required <i>TwclWiFiDirectPairingKinds</i> was not supported.</error>
+      <error value="0x0002800F" const="WCL_E_WIFI_DIRECT_PAIR_HANDLER_NOT_REGISTERED">Either the event handler wasn't registered or a required wclWiFiDirectPairingKinds was not supported.</error>
       <error value="0x00028010" const="WCL_E_WIFI_DIRECT_PAIR_REJECTED_BY_HANDLER">The application handler rejected the pairing.</error>
       <error value="0x00028011" const="WCL_E_WIFI_DIRECT_PAIR_HAS_ASSOCCIATION">The remove device already has an association.</error>
-      <error value="0x00028012" const="WCL_E_WIFI_DIRECT_PAIR_UNKNOW">An unknown or unexpected failure occurred.</error>
+      <error value="0x00028012" const="WCL_E_WIFI_DIRECT_PAIR_UNKNOWN">An unexpected failure occurred.</error>
+      <error value="0x00028013" const="WCL_E_WIFI_DIRECT_PAIR_FAILURE">An unknown failure occurred.</error>
     </category>
     
     <category name="WiFi Direct device">
@@ -475,34 +489,29 @@
       <error value="0x00029007" const="WCL_E_WIFI_DIRECT_DEVICE_EXTENDED_INFO_NOT_SUPPORTED">Extended device information not supported.</error>
       <error value="0x00029008" const="WCL_E_WIFI_DIRECT_DEVICE_PAIRING_NOT_SUPPORTED">WiFi Direct device does not support pairing.</error>
       <error value="0x00029009" const="WCL_E_WIFI_DIRECT_DEVICE_CUSTOM_PAIRING_NOT_SUPPORTED">WiFi Direct device does not support custom pairing.</error>
-      <error value="0x0002900A" const="WCL_E_WIFI_DIRECT_DEVICE_GET_NAME_FAILED">Unable to get WiFi Direct device's name.</error>
-      <error value="0x0002900B" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_PAIRING_SYNC_EVENT_FAILED">Unable to create WiFi Direct device pairing notification synchronization event.</error>
-      <error value="0x0002900C" const="WCL_E_WIFI_DIRECT_DEVICE_CONNECTION_TERMINATED_BT_USER">Connection has been terminated by user.</error>
-      <error value="0x0002900D" const="WCL_E_WIFI_DIRECT_DEVICE_WAIT_FAILED">Wait for notification message processing failed.</error>
-      <error value="0x0002900E" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_PAIRING_MUTEX_FAILED">Unable to create pairing synchronization mutex.</error>
-      <error value="0x0002900F" const="WCL_E_WIFI_DIRECT_DEVICE_SET_GO_FAILED">Unable to set Group Owner Intent.</error>
-      <error value="0x00029010" const="WCL_E_WIFI_DIRECT_DEVICE_GET_CONNECTION_PARAMETERS_FAILED">Unable to get connection parameters.</error>
-      <error value="0x00029011" const="WCL_E_WIFI_DIRECT_DEVICE_SET_PAIRING_PROCEDURE_FAILED">Unable to set preffered pairing procedure.</error>
-      <error value="0x00029012" const="WCL_E_WIFI_DIRECT_DEVICE_GET_CUSTOM_PAIRING_FILED">Unable to get custom pairing interface.</error>
-      <error value="0x00029013" const="WCL_E_WIFI_DIRECT_DEVICE_SET_PAIRING_EVENT_HANDLER_FAILED">Unable to set pairing event handler.</error>
-      <error value="0x00029014" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRING_SETTINGS_FILED">Unable to get pairing settings.</error>
-      <error value="0x00029015" const="WCL_E_WIFI_DIRECT_DEVICE_START_PAIRING_FAILED">Unable to start pairing with remote WiFi Direct device.</error>
-      <error value="0x00029016" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRING_RESULT_FAILED">Unable to get pairing result.</error>
-      <error value="0x00029017" const="WCL_E_WIFI_DIRECT_DEVICE_PAIRING_FAILED">Unable to pair with remote device.</error>
-      <error value="0x00029018" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_FAILED">Unable to create WiFi Direct device object.</error>
-      <error value="0x00029019" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_GET_RESULT_FAILED">Unable to get WiFi Direct device creation operation result.</error>
-      <error value="0x0002901A" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_OBJECT_NOT_CREATED">WiFi Direct device object was not created.</error>
-      <error value="0x0002901B" const="WCL_E_WIFI_DIRECT_DEVICE_SET_DISCONNECT_EVENT_HANDLER_FAILED">Unable to set disconnection event handler.</error>
-      <error value="0x0002901C" const="WCL_E_WIFI_DIRECT_DEVICE_GET_ENDPOINTS_FAILED">Unable to get connection endpoint pairs.</error>
-      <error value="0x0002901D" const="WCL_E_WIFI_DIRECT_DEVICE_GET_ENDPOINTS_COUNT_FAILED">Unable to get connection endpoints count.</error>
-      <error value="0x0002901E" const="WCL_E_WIFI_DIRECT_DEVICE_ENDPOINTS_NOT_FOUND">No connection endpoints were found.</error>
-      <error value="0x0002901F" const="WCL_E_WIFI_DIRECT_DEVICE_GET_ENDPOINT_PAIR_FILED">Unable to get default (first) connection endpoint pair.</error>
-      <error value="0x00029020" const="WCL_E_WIFI_DIRECT_DEVICE_GET_HOST_NAME_FAILED">Unable to get IHostName interface for the connection endpoint pair.</error>
-      <error value="0x00029021" const="WCL_E_WIFI_DIRECT_DEVICE_GET_CANONICAL_NAME_FAILED">Unable to convert Host Name to IP address.</error>
-      <error value="0x00029022" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRED_FAILED">Unable to get WiFi Direct device's pairing status.</error>
-      <error value="0x00029023" const="WCL_E_WIFI_DIRECT_DEVICE_START_UNPAIR_FAILED">Unable to start unpairing operation.</error>
-      <error value="0x00029024" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_TIMEOUT">Timeout during creating WiFi Direct device object. Usually it appears when device has wrong DHCP configuration or uses static IP.</error>
-      <error value="0x00029025" const="WCL_E_WIFI_DIRECT_DEVICE_START_CREATE_FAILED">Unable to start WiFi Direct device object creating procedure.</error>
+      <error value="0x0002900A" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_PAIRING_SYNC_EVENT_FAILED">Unable to create WiFi Direct device pairing notification synchronization event.</error>
+      <error value="0x0002900B" const="WCL_E_WIFI_DIRECT_DEVICE_CONNECTION_TERMINATED_BT_USER">Connection has been terminated by user.</error>
+      <error value="0x0002900C" const="WCL_E_WIFI_DIRECT_DEVICE_WAIT_FAILED">Wait for notification message processing failed.</error>
+      <error value="0x0002900D" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_PAIRING_MUTEX_FAILED">Unable to create pairing synchronization mutex.</error>
+      <error value="0x0002900E" const="WCL_E_WIFI_DIRECT_DEVICE_SET_GO_FAILED">Unable to set Group Owner Intent.</error>
+      <error value="0x0002900F" const="WCL_E_WIFI_DIRECT_DEVICE_GET_CONNECTION_PARAMETERS_FAILED">Unable to get connection parameters.</error>
+      <error value="0x00029010" const="WCL_E_WIFI_DIRECT_DEVICE_SET_PAIRING_PROCEDURE_FAILED">Unable to set preffered pairing procedure.</error>
+      <error value="0x00029011" const="WCL_E_WIFI_DIRECT_DEVICE_GET_CUSTOM_PAIRING_FILED">Unable to get custom pairing interface.</error>
+      <error value="0x00029012" const="WCL_E_WIFI_DIRECT_DEVICE_SET_PAIRING_EVENT_HANDLER_FAILED">Unable to set pairing event handler.</error>
+      <error value="0x00029013" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRING_SETTINGS_FILED">Unable to get pairing settings.</error>
+      <error value="0x00029014" const="WCL_E_WIFI_DIRECT_DEVICE_START_PAIRING_FAILED">Unable to start pairing with remote WiFi Direct device.</error>
+      <error value="0x00029015" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRING_RESULT_FAILED">Unable to get pairing result.</error>
+      <error value="0x00029016" const="WCL_E_WIFI_DIRECT_DEVICE_PAIRING_FAILED">Unable to pair with remote device.</error>
+      <error value="0x00029017" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_FAILED">Unable to create WiFi Direct device object.</error>
+      <error value="0x00029018" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_GET_RESULT_FAILED">Unable to get WiFi Direct device creation operation result.</error>
+      <error value="0x00029019" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_OBJECT_NOT_CREATED">WiFi Direct device object was not created.</error>
+      <error value="0x0002901A" const="WCL_E_WIFI_DIRECT_DEVICE_SET_DISCONNECT_EVENT_HANDLER_FAILED">Unable to set disconnection event handler.</error>
+      <error value="0x0002901B" const="WCL_E_WIFI_DIRECT_DEVICE_GET_PAIRED_FAILED">Unable to get WiFi Direct device's pairing status.</error>
+      <error value="0x0002901C" const="WCL_E_WIFI_DIRECT_DEVICE_START_UNPAIR_FAILED">Unable to start unpairing operation.</error>
+      <error value="0x0002901D" const="WCL_E_WIFI_DIRECT_DEVICE_CREATE_TIMEOUT">Timeout during creating WiFi Direct device object.</error>
+      <error value="0x0002901E" const="WCL_E_WIFI_DIRECT_DEVICE_START_CREATE_FAILED">Unable to start WiFi Direct device object creating procedure.</error>
+      <error value="0x0002901F" const="WCL_E_WIFI_DIRECT_DEVICE_GET_ID_FAILED">Unable to get device ID.</error>
+      <error value="0x00029020" const="WCL_E_WIFI_DIRECT_DEVICE_BUSY">The WiFi Direct device or driver is busy.</error>
     </category>
     
     <category name="WiFi Direct advertiser">
@@ -527,6 +536,7 @@
       <error value="0x0002A012" const="WCL_E_WIFI_DIRECT_ADVERTISER_ALREADY_RUNNING">WiFi Direct Advertiser is already running by other WiFi Framework based application.</error>
       <error value="0x0002A013" const="WCL_E_WIFI_DIRECT_ADVERTISER_CREATE_MUTEX_FAILED">Unable to create global mutex object.</error>
       <error value="0x0002A014" const="WCL_E_WIFI_DIRECT_ADVERTISER_HOTSPOT_RUNNING">Mobile Hotspot is already running on PC.</error>
+      <error value="0x0002A015" const="WCL_E_WIFI_DIRECT_ADVERTISER_INVALID_OS_BITS">This error returned when your run x32 application on x64 platform and Autonomous Group Owner enabled in WiFiDirectAdvertiser and the Advertiser runs not in Legacy mode.</error>
     </category>
     
     <category name="WiFi Direct device watcher">
@@ -649,9 +659,9 @@
       <error value="0x00031003" const="WCL_E_OBEX_CONTINUE">The server has received the request headers and the client should proceed to send the request body (in the case of a request for which a body needs to be sent).</error>
       <error value="0x00031004" const="WCL_E_OBEX_CREATED">The request has been fulfilled, resulting in the creation of a new resource.</error>
       <error value="0x00031005" const="WCL_E_OBEX_ACCEPTED">The request has been accepted for processing, but the processing has not been completed. The request might or might not be eventually acted upon, and may be disallowed when processing occurs.</error>
-      <error value="0x00031006" const="WCL_E_OBEX_NON_AUTHORITATIVE">The server is a transforming proxy that received a <i>WCL_E_SUCCESS</i> from its origin, but is returning a modified version of the origin's response.</error>
+      <error value="0x00031006" const="WCL_E_OBEX_NON_AUTHORITATIVE">The server is a transforming proxy that received a WCL_E_SUCCESS from its origin, but is returning a modified version of the origin's response.</error>
       <error value="0x00031007" const="WCL_E_OBEX_NO_CONTENT">The server successfully processed the request and is not returning any content.</error>
-      <error value="0x00031008" const="WCL_E_OBEX_RESET_CONTENT">The server successfully processed the request, but is not returning any content. Unlike a <i>WCL_E_OBEX_NO_CONTENT</i> error, this error requires that the requester reset the object.</error>
+      <error value="0x00031008" const="WCL_E_OBEX_RESET_CONTENT">The server successfully processed the request, but is not returning any content. Unlike a WCL_E_OBEX_NO_CONTENT error, this error requires that the requester reset the object.</error>
       <error value="0x00031009" const="WCL_E_OBEX_PARTIAL_CONTENT">The server is delivering only part of the resource due to a range header sent by the client. The range header is used by OBEX clients to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.</error>
       <error value="0x0003100A" const="WCL_E_OBEX_MULTIPLE_CHOICES">Indicates multiple options for the resource from which the client may choose.</error>
       <error value="0x0003100B" const="WCL_E_OBEX_MOVED_PERMANENTLY">This and all future requests should be directed to the given URI.</error>
@@ -660,7 +670,7 @@
       <error value="0x0003100E" const="WCL_E_OBEX_NOT_MODIFIED">Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy.</error>
       <error value="0x0003100F" const="WCL_E_OBEX_USE_PROXY">The requested resource is available only through a proxy, the address for which is provided in the response.</error>
       <error value="0x00031010" const="WCL_E_OBEX_BAD_REQUEST">The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).</error>
-      <error value="0x00031011" const="WCL_E_OBEX_UNAUTHORIZED">Similar to <i>WCL_E_OBEX_FORBIDDEN</i>, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.</error>
+      <error value="0x00031011" const="WCL_E_OBEX_UNAUTHORIZED">Similar to WCL_E_OBEX_FORBIDDEN, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.</error>
       <error value="0x00031012" const="WCL_E_OBEX_PAYMENT_REQUIRED">Reserved for future use.</error>
       <error value="0x00031013" const="WCL_E_OBEX_FORBIDDEN">The request was valid, but the server is refusing action. The user might not have the necessary permissions for a resource, or may need an account of some sort.</error>
       <error value="0x00031014" const="WCL_E_OBEX_NOT_FOUND">The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible.</error>
@@ -773,7 +783,7 @@
       <error value="0x00050013" const="WCL_E_BLUETOOTH_UNABLE_CHANGE_NAME">Unable to change Radio name.</error>
       <error value="0x00050014" const="WCL_E_BLUETOOTH_FEATURE_NOT_SUPPORTED">The requested feature is not supported by a Bluetooth driver.</error>
       <error value="0x00050015" const="WCL_E_BLUETOOTH_UNEXPECTED">Unexpected or unknown Bluetooth error.</error>
-      <error value="0x00050016" const="WCL_E_BLUETOOTH_LINK_UNEXPECTED">Error other than time-out at L2CAP or Bluetooth radio level.<br />Usualy this error appears if you try to connect to device that is paired on PC side but PC is not paired or has been unpaired on the device side. Unpairing device on PC side usually solves the error.</error>
+      <error value="0x00050016" const="WCL_E_BLUETOOTH_LINK_UNEXPECTED">Error other than time-out at L2CAP or Bluetooth radio level. Usualy this error appears if you try to connect to device that is paired on PC side but PC is not paired or has been unpaired on the device side. Unpairing device on PC side usually solves the error.</error>
       <error value="0x00050017" const="WCL_E_BLUETOOTH_OPERATION_FAILED">The operation fails for an undefined reason.</error>
       <error value="0x00050018" const="WCL_E_BLUETOOTH_OPERATION_CONFLICT">The request can not be processed since a same request is being processed.</error>
       <error value="0x00050019" const="WCL_E_BLUETOOTH_NO_MORE_CONNECTION_ALLOWED">The limit of connection number is reached.</error>
@@ -819,7 +829,7 @@
       <error value="0x00050041" const="WCL_E_BLUETOOTH_RFCOMM_DOWN">The RFCOMM received DM response. For incoming connections, the error indicates that the connection is rejected if authentication cannot be established. For outgoing connection the error indicates that the service does not use RFCOMM.</error>
       <error value="0x00050042" const="WCL_E_BLUETOOTH_RFCOMM_DISCONNECTED">The RFCOMM channel disconnected by remote peer.</error>
       <error value="0x00050043" const="WCL_E_BLUETOOTH_UNABLE_TO_RESOLVE_ADDRESS">Unable to resolve connected remote device address.</error>
-      <error value="0x00050044" const="WCL_E_BLUETOOTH_UNABLE_ADD_ADP_RECORD">Unable to add new SDP record.</error>
+      <error value="0x00050044" const="WCL_E_BLUETOOTH_UNABLE_ADD_SDP_RECORD">Unable to add new SDP record.</error>
       <error value="0x00050045" const="WCL_E_BLUETOOTH_UNABLE_SET_SERVER_SECURITY">Unable to set server authentication and/or encription states.</error>
       <error value="0x00050046" const="WCL_E_BLUETOOTH_LOCAL_SERVICE_ACTIVE">Local service is still active.</error>
       <error value="0x00050047" const="WCL_E_BLUETOOTH_UNABLE_CREATE_SERVER">Unable to create Bluetooth server.</error>
@@ -931,6 +941,7 @@
       <error value="0x000500B1" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_PARAM">Invalid parameters specified in Bluetooth Radio driver open request.</error>
       <error value="0x000500B2" const="WCL_E_BLUETOOTH_OPEN_RADIO_INVALID_NAME">Invalid Bluetooth Radio driver name.</error>
       <error value="0x000500B3" const="WCL_E_BLUETOOTH_OPEN_RADIO_COUNT_LIMIT">Too many opened Bluetooth Radio driver instances.</error>
+      <error value="0x000500B4" const="WCL_E_BLUETOOTH_DRIVER_BUSY">A Bluetooth driver is busy.</error>
     </category>
     
     <category name="Low Energy">
@@ -992,8 +1003,8 @@
       <error value="0x00051037" const="WCL_E_BLUETOOTH_LE_ADVERTISING_UNBALE_START_THREAD">Unable start Bluetooth LE Advertising thread.</error>
       <error value="0x00051038" const="WCL_E_BLUETOOTH_LE_WRITE_VALUE_TOO_LONG">An application executes Write Without Response with value size longer than maximum PDU size (MTU). Ap application must use Write With Response instead. To do that an application must set IsWritableWithoutResponse characteristic's property to false and then call the WriteCharacteristicValue method to force Write With Response.</error>
       <error value="0x00051039" const="WCL_E_BLUETOOTH_LE_UNABLE_GET_ADVERTISER">Unable to get Bluetooth LE Advertiser object.</error>
-      <error value="0x0005103A" const="WCL_E_BLUETOOTH_LE_ADVERTISING">Bluetooth LE advertising is already running on this radio.</error>
-      <error value="0x0005103B" const="WCL_E_BLUETOOTH_LE_CREATE_ADVERTISING_MUTEX_FAILED">Unable to create advertising protection mutex object.</error>
+      <error value="0x0005103A" const="WCL_E_BLUETOOTH_LE_SUBSCRIBE_FAILED">Unable to start subscribing thread.</error>
+      <error value="0x0005103B" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_NO_SUBSCRIBED_CLIENTS">No subscribed clients found.</error>
       <error value="0x0005103C" const="WCL_E_BLUETOOTH_LE_CREATE_CONNECTION_COMPLETION_EVENT_FAILED">Unable to create connection completion event.</error>
       <error value="0x0005103D" const="WCL_E_BLUETOOTH_LE_CREATE_DISCOVERING_THREAD_FAILED">Unable to start LE devices discovering thread.</error>
       <error value="0x0005103E" const="WCL_E_BLUETOOTH_LE_EDDYSTONE_URL_TOO_SHORT">The URL passsed to the Eddytone URL Beacon is empty or too short. The length of the URL must be at least 8 characters.</error>
@@ -1095,8 +1106,8 @@
       <error value="0x0005109E" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_SET_WRITE_EVENT_HANDLER_FAILED">Unable to set GATT local characteristic write request event handler.</error>
       <error value="0x0005109F" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_SET_READ_EVENT_HANDLER_FAILED">Unable to set GATT local characteristic read request event handler.</error>
       <error value="0x000510A0" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_SET_CLIENTS_CHANGED_EVENT_HANDLER_FAILED">Unable to set GATT local characteristic subscribed clients changed event handler.</error>
-      <error value="0x000510A1" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_GET_CLIENTS_LIST_FAILED">Unable to get list of the characteristic's subscribed clients.</error>
-      <error value="0x000510A2" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_GET_CLIENTS_COUNT_FAILED">Unable to get number of subscribed clients.</error>
+      <error value="0x000510A1" const="WCL_E_BLUETOOTH_LE_UNSUBSCRIBE_FAILED">Unable to start unsubscribing thread.</error>
+      <error value="0x000510A2" const="WCL_E_BLUETOOTH_LE_INVALID_CONNECTION_PARAMETERS_VALUE">One or more connection parameter values are not valid.</error>
       <error value="0x000510A3" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_CHARACTERISTIC_NOT_NOTIFIABLE">Characteristic is not notifiable or indicatable.</error>
       <error value="0x000510A4" const="WCL_E_BLUETOOTH_LE_DIRECT_ADVERTISING_TIMEOUT">Directed advertising completed without a connection being created.</error>
       <error value="0x000510A5" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_CREATE_MUTEX_FAILED">Unable to create GATT Server protection mutex.</error>
@@ -1128,7 +1139,7 @@
       <error value="0x000510BF" const="WCL_E_BLUETOOTH_LE_GET_CONNECTION_PARAMS_FAILED">Unable to get the current connection parameters.</error>
       <error value="0x000510C0" const="WCL_E_BLUETOOTH_LE_INVALID_CONNECTION_PARAMS">Invalid or unknown preffered connection parameters type.</error>
       <error value="0x000510C1" const="WCL_E_BLUETOOTH_LE_SET_CONNECTION_PARAMS_FAILED">Unable to set the current connection parameters.</error>
-      <error value="0x000510C2" const="WCL_E_BLUETOOTH_LE_EXT_ADV_NOT_SUPPORTED">The extended advertisement properties are not supported. Set the UseExtendedAdvertisement property of the TwclBluetoothLeAdvertiser component to False and try to restart the advertisement.</error>
+      <error value="0x000510C2" const="WCL_E_BLUETOOTH_LE_EXT_ADV_NOT_SUPPORTED">The extended advertisement properties are not supported. Set the UseExtendedAdvertisement property of the wclBluetoothLeAdvertiser component to False and try to restart the advertisement.</error>
       <error value="0x000510C3" const="WCL_E_BLUETOOTH_LE_SET_EXT_ADV_FAILED">Set extended advertisement properties failed.</error>
       <error value="0x000510C4" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_SET_DISCONNECT_EVENT_HANDLER_FAILED">Unable to set client disconnect event handler for the GATT server.</error>
       <error value="0x000510C5" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_CLIENT_NOT_SUBSCRIBED">The client is not subscribed to any GATT server characteristic.</error>
@@ -1159,8 +1170,6 @@
       <error value="0x000510DE" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_WRITE_WITHOUT_RESPONSE">The write operation was requested as Write Without Response.</error>
       <error value="0x000510DF" const="WCL_E_BLUETOOTH_LE_GATT_SERVER_RESPONSE_ALREADY_SENT">The response was already sent.</error>
       <error value="0x000510E0" const="WCL_E_BLUETOOTH_LE_CLIENT_NOT_CONNECTED">A client is not connected to a Bluetooth device.</error>
-      <error value="0x000510E1" const="WCL_E_BLUETOOTH_LE_SUBSCRIBE_FAILED">Unable to start subscribing thread.</error>
-      <error value="0x000510E2" const="WCL_E_BLUETOOTH_LE_UNSUBSCRIBE_FAILED">Unable to start unsubscribing thread.</error>
     </category>
     
     <category name="Wii Remote">
@@ -1256,15 +1265,15 @@
       <error value="0x00060012" const="WCL_E_SERIAL_UNABLE_SET_COMM_TIMEOUTS">Unable to write COM port timeouts.</error>
       <error value="0x00060013" const="WCL_E_SERIAL_UNABLE_CREATE_OVERLAPPED_EVENT">Unable create overlapped operation event.</error>
       <error value="0x00060014" const="WCL_E_SERIAL_UNABLE_OPEN_PORT">Unable to open the specified COM port.</error>
-      <error value="0x00060015" const="WCL_E_SERIAL_UNABLE_CLEAR_BUFFERS">Unable clear input and output buffers.</error>
+      <error value="0x00060015" const="WCL_E_SERIAL_UNABLE_GET_COMM_FEATURES">COM features read failed.</error>
       <error value="0x00060016" const="WCL_E_SERIAL_UNABLE_SET_EVENTS_MASK">Unable to set COM potr events mask.</error>
       <error value="0x00060017" const="WCL_E_SERIAL_PURGE_COMM_FAILED">The PurgeComm operation was failed.</error>
-      <error value="0x00060018" const="WCL_E_SERIAL_ESCAPE_COMM_FUNCTION_FAILED">The <i>EscapeCommFunction</i> has been failed.</error>
-      <error value="0x00060019" const="WCL_E_SERIAL_SET_COMM_BREAK_FAILED">The <i>SetCommBreak</i> method failed.</error>
-      <error value="0x0006001A" const="WCL_E_SERIAL_CLEAR_COMM_BREAK_FAILED">The <i>ClearCommBreak</i> method failed.</error>
-      <error value="0x0006001B" const="WCL_E_SERIAL_TRANSMIT_COMM_CHAR_FAILED">The <i>TransmitCommChar</i> method failed.</error>
-      <error value="0x0006001C" const="WCL_E_SERIAL_FLUSH_BUFFERS_FAILED">The <i>FlushBuffers</i> method failed.</error>
-      <error value="0x0006001D" const="WCL_E_SERIAL_GET_MODEM_STATUS_FAILED">The <i>GetCommStatus</i> method failed.</error>
+      <error value="0x00060018" const="WCL_E_SERIAL_ESCAPE_COMM_FUNCTION_FAILED">The EscapeCommFunction has been failed.</error>
+      <error value="0x00060019" const="WCL_E_SERIAL_SET_COMM_BREAK_FAILED">The SetCommBreak method failed.</error>
+      <error value="0x0006001A" const="WCL_E_SERIAL_CLEAR_COMM_BREAK_FAILED">The ClearCommBreak method failed.</error>
+      <error value="0x0006001B" const="WCL_E_SERIAL_TRANSMIT_COMM_CHAR_FAILED">The TransmitCommChar method failed.</error>
+      <error value="0x0006001C" const="WCL_E_SERIAL_FLUSH_BUFFERS_FAILED">The FlushBuffers method failed.</error>
+      <error value="0x0006001D" const="WCL_E_SERIAL_GET_MODEM_STATUS_FAILED">The GetCommStatus method failed.</error>
       <error value="0x0006001E" const="WCL_E_SERIAL_READ_ERROR">Read operation failed.</error>
       <error value="0x0006001F" const="WCL_E_SERIAL_UNABLE_CREATE_RESTART_EVENT">Unable create communication restart event.</error>
       <error value="0x00060020" const="WCL_E_SERIAL_DEVICE_WRITE_TIMEOUT">Write operation was timed out on wait. Probably device is disconnected or not available.</error>
@@ -1273,7 +1282,6 @@
       <error value="0x00060023" const="WCL_E_SERIAL_UNABLE_GET_DEVICE_NODE">Unable to locate specified device's node.</error>
       <error value="0x00060024" const="WCL_E_SERIAL_DEVICE_INTERFACES_NOT_FOUND">No one device's interface was found for specified device's instance ID.</error>
       <error value="0x00060025" const="WCL_E_SERIAL_DEVICE_SWITCH_FAILED">Unable to switch (disable or enable) specified USB (serial) devices.</error>
-      <error value="0x00060026" const="WCL_E_SERIAL_UNABLE_GET_COMM_FEATURES">COM features read failed.</error>
     </category>
     
     <category name="USB monitor">
