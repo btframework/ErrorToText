@@ -21,6 +21,7 @@
       <error value="0x00011006" const="WCL_E_MR_SYNC_OBJ_NOT_CREATED">A thread synchronization object has not been created.</error>
       <error value="0x00011007" const="WCL_E_MR_INVALID_THREAD">An invalid thread used to call the method.</error>
       <error value="0x00011008" const="WCL_E_MR_UNABLE_CREATE_TERM_EVENT">Unable to create asynchronous message processing thread termination event.</error>
+      <error value="0x00011009" const="WCL_E_MR_INVALID_MESSAGE_PROCESSING_METHOD">Invalid or unsupported message processing method.</error>
     </category>
     
     <category name="Message broadcaster">
@@ -1286,8 +1287,6 @@
     
     <category name="USB monitor">
       <error value="0x00061000" const="WCL_E_USB_MONITOR_DEVICE_CLASS_NOT_FOUND">No USB devices found on this system.</error>
-      <error value="0x00061001" const="WCL_E_USB_MONITORING_RUNNING">Monitoring is running.</error>
-      <error value="0x00061002" const="WCL_E_USB_MONITORING_NOT_RUNNING">Monitoring is not running.</error>
     </category>
     
     <category name="COM database">

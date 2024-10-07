@@ -10,11 +10,11 @@ The function can read errors information from XML file located on our site (http
 * .NET samples is designed for .NET Framework 4.0 and above and created in Visual Studio 2015
 
 Required:
-* Bluetooth Framework **7.18.2.0** or above. You can download Bluetooth Framework [here](https://www.btframework.com/bluetoothframework.htm)
-* IrDA Framework **7.8.24.0** or above. You can download IrDA Framework [here](https://www.btframework.com/irdaframework.htm)
-* Serial Framework **7.7.25.0** or above. You can download Serial Framework [here](https://www.btframework.com/serialframework.htm)
-* Timeline Framework **7.1.23.0** or above. You can download Timeline Framework [here](https://www.btframework.com/timelineframework.htm)
-* WiFi Framework **7.11.4.0** or above. You can download WiFi Framework [here](https://www.btframework.com/wififramework.htm)
+* Bluetooth Framework **7.19.0.0** or above. You can download Bluetooth Framework [here](https://www.btframework.com/bluetoothframework.htm)
+* IrDA Framework **7.9.0.0** or above. You can download IrDA Framework [here](https://www.btframework.com/irdaframework.htm)
+* Serial Framework **7.8.0.0** or above. You can download Serial Framework [here](https://www.btframework.com/serialframework.htm)
+* Timeline Framework **7.2.0.0** or above. You can download Timeline Framework [here](https://www.btframework.com/timelineframework.htm)
+* WiFi Framework **7.12.0.0** or above. You can download WiFi Framework [here](https://www.btframework.com/wififramework.htm)
 
 The file on the site is always up to date. However using local file does not require internet access and for some reason can be better.
 
