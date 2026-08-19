@@ -3,7 +3,7 @@
 
 Wireless Communication Library (https://www.btframework.com/wcl.htm) includes very usefull function **wclGetErrorInfo()** that can be used by your applications to translate WCL error codes into human readable description.
 
-The function can read errors information from XML file located on our site (https://ww.btframework.com/errors.xml) or from local copy of this file.
+The function can read errors information from XML file located on our site (https://www.btframework.com/errors.xml) or from local copy of this file.
 
 * Delphi samples is designed for Delphi/CBuilder (RAD Studio) 10
 * C++ samples is designed for Visual Studio 2015
